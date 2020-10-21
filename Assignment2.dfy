@@ -6,7 +6,7 @@ method Product ( a: int , b: nat ) returns ( z: int )
     z := 0;
     var x , y: nat := a , b ;
     while y != 0
-        invariant z == y ∗ x && y == a
+        invariant z == y ∗ x
     {
         if y % 2 == 1 { z := z + x ; }
         y := y / 2;
