@@ -56,7 +56,7 @@ function potencias (a:nat) : nat{
     if a <= 0 then 1 else 2 * potencias(a-1)
 }
 predicate OnlyBinary(a: array<nat >)
-    reads a;
+    reads a
     requires a.Length>0
 {
     forall i :nat :: i<a.Length && (a[i]==1 || a[i] ==0)
