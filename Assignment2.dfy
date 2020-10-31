@@ -23,28 +23,35 @@ method Main ( ) {
 }
 
 method BinaryToNat ( a: array <nat > ) returns ( n: nat )
+    ensures n == natural(a,0,a.Length)
     requires a.Length > 0
-    requires OnlyBinary(a)
     requires a[0] == 1
-    //ensures n == natural(a[0..])
-
+    requires OnlyBinary(a)
 {
     var i :nat :=0;
     var aux:=0;
     var power:=0;
-    while i <a.Length
-        //invariant 
+    while i < a.Length
+        decreases a.Length-i;
+        invariant n  == natural(a,i,a.Length-i) 
+        && i <=a.Length 
+        && OnlyBinary(a);
     {  
         power:= Power(a.Length-1-i);
-        aux := a[i] % 10;
+        aux := a[i];
         n := n + aux * power;
         i := i+1;
     }
 }
 
-/*function natural(a: array <nat>) : nat{
-    if i==a.Length-1 then a[i] % 10 + power else natural(a,i+1)
-}*/
+function natural(a: array <nat>, i: nat, end:int) : nat
+    reads a;
+    requires i<=end-1;
+    requires end-1<a.Length;
+    decreases end-1-i;
+{
+    if i==end-1 then a[i] * potencias(end-1-i) else a[i]*potencias(end-1-i)+natural(a,i+1,end)
+}
 
 
 method Power ( n: nat ) returns ( j : nat )
