@@ -6,7 +6,7 @@ method Product ( a: int , b: nat ) returns ( z: int )
     z := 0;
     var x , y: nat := a , b ;
     while y != 0
-        invariant a*b == z+x*y
+        invariant z == a*b - x*y
     {
         if y % 2 == 1 { z := z + x ; }
         y := y / 2;
@@ -26,19 +26,27 @@ method BinaryToNat ( a: array <nat > ) returns ( n: nat )
     requires a.Length > 0
     requires OnlyBinary(a)
     requires a[0] == 1
+    //ensures n == natural(a[0..])
+
 {
     var i :nat :=0;
     var aux:=0;
     var power:=0;
     while i <a.Length
-        invariant OnlyBinary(a) && i<=a.Length
-    {
-        power:= Power(i);
-        aux:=a[i] % 10;
+        //invariant 
+    {  
+        power:= Power(a.Length-1-i);
+        aux := a[i] % 10;
         n := n + aux * power;
-        i:= i+1;
+        i := i+1;
     }
 }
+
+/*function natural(a: array <nat>) : nat{
+    if i==a.Length-1 then a[i] % 10 + power else natural(a,i+1)
+}*/
+
+
 method Power ( n: nat ) returns ( j : nat )
     ensures j == potencias(n)
 {
