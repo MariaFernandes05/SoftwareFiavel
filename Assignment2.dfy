@@ -1,5 +1,4 @@
-//Downwards Sum
-
+//1.Downwards Sum
 method Product ( a: int , b: nat ) returns ( z: int )
     ensures z == a ∗ b
 {
@@ -14,7 +13,7 @@ method Product ( a: int , b: nat ) returns ( z: int )
     }
 }
 
-//Binary Representation of Natural Numbers
+//2.Binary Representation of Natural Numbers
 method Main ( ) {
     var a := new nat [ 5 ] ;
     a[0]:=1; a[1]:=0;a[2]:=1;a[3]:=1;a[4]:=0;
